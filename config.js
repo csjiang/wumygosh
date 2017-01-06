@@ -14,21 +14,24 @@ cfg.port = process.env.PORT || 2409;
 // HTTP sessions
 cfg.secret = process.env.APP_SECRET || 'file cabinet makeup';
 
-//twilio and AQICN api credentials, Firebase db url
+//twilio and AQICN api credentials
 cfg.accountSid = process.env.TWILIO_ACCOUNT_SID;
 cfg.authToken = process.env.TWILIO_AUTH_TOKEN;
 cfg.sendingNumber = process.env.TWILIO_NUMBER;
 cfg.aqiToken = process.env.AQITOKEN;
+
+//Firebase credentials
+cfg.dbPath = process.env.DBPATH;
 cfg.dbUrl = process.env.DBURL;
 
-const requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber, cfg.aqiToken, cfg.dbUrl];
+const requiredConfig = [cfg.accountSid, cfg.authToken, cfg.sendingNumber, cfg.aqiToken, cfg.dbUrl, cfg.dbPath];
 const isConfigured = requiredConfig.every(configValue => {
   return configValue || false;
 });
 
 if (!isConfigured) {
   const errorMessage =
-    'TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_NUMBER, AQITOKEN, and DBURL must be set.';
+    'TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_NUMBER, AQITOKEN, DBPATH, and DBURL must be set.';
 
   throw new Error(errorMessage);
 }
